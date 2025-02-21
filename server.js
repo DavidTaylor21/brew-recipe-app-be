@@ -2,6 +2,9 @@ import Fastify from 'fastify';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUI from '@fastify/swagger-ui';
 import { userRoutes } from './routes/users.js';
+import { grindersRoutes } from './routes/grinders.js';
+import { recipesRoutes } from './routes/recipes.js';
+import { coffeeRoutes } from './routes/coffee.js';
 
 const PORT = 5000
 
@@ -32,6 +35,9 @@ fastify.register(fastifySwaggerUI, {
 });
 
 fastify.register(userRoutes);
+fastify.register(grindersRoutes)
+fastify.register(recipesRoutes)
+fastify.register(coffeeRoutes)
 
 fastify.get("/", async (request, reply) => {
   reply.send({ message: "Hello, Coffee Recipe lovers!" });

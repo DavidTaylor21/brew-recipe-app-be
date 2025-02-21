@@ -7,7 +7,7 @@ const postItemOpts = {
         type: "object",
         properties: {
           message: { type: "string" },
-          user: {
+          createdUser: {
             type: "object",
             properties: {
               id: { type: "integer" },

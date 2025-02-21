@@ -6,3 +6,4 @@ export const addUser = (req, reply) => {
     const createdUser = addUserToDb(newUser)
     reply.code(201).send({createdUser})
 }
+
