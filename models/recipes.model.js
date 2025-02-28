@@ -14,3 +14,6 @@ export const addRecipeToDb = async (recipe) => {
     },
   });
 };
+export const getRecipesFromDb = async () => {
+  return await prisma.recipe.findMany()
+}

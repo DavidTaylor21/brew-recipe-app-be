@@ -1,4 +1,4 @@
-import {addRecipe} from "../controllers/recipes.controller.js";
+import {addRecipe, getRecipes} from "../controllers/recipes.controller.js";
 const postRecipeOpts = {
   schema: {
     response: {
@@ -13,9 +13,6 @@ const postRecipeOpts = {
               title: { type: "string" },
               steps: { type: "string" },
               brewMethod: { type: "string" },
-              user: { type: "string" },
-              grinder: {type: "string"},
-              coffee: {type: "string"}
             },
           },
         },
@@ -24,8 +21,32 @@ const postRecipeOpts = {
   },
   handler: addRecipe,
 };
+const getRecipesOpts = {
+  schema: {
+    response: {
+      200 : {
+        type: "object",
+        properties: {
+          recipes: {
+            type: "array",
+            items: {
+              properties: {
+                id: { type: "integer" },
+                title: { type: "string" },
+                steps: { type: "string" },
+                brewMethod: { type: "string" },
+              },
+            }
+          }
+        }
+      }
+    }
+  },
+  handler: getRecipes
+}
 
 export const recipesRoutes = (fastify, options, done) => {
   fastify.post("/recipes", postRecipeOpts);
+  fastify.get("/recipes", getRecipesOpts)
   done();
 };

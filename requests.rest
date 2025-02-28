@@ -1,0 +1,62 @@
+GET http://localhost:5000/grinders
+
+###
+
+POST http://localhost:5000/grinders
+Content-Type: application/json
+
+{
+    "name": "Mythos 2"
+}
+
+###
+POST http://localhost:5000/coffees
+Content-Type: application/json
+
+{
+    "name": "Ethiopian blend"
+}
+
+###
+
+GET http://localhost:5000/coffees
+
+###
+
+POST http://localhost:5000/recipes
+Content-Type: application/json
+
+{
+     "title" : "second recipe3",
+     "steps" : "brew coffee again",
+     "brewMethod" : "aeropress",
+     "user": "sian",
+     "grinder": "Mythos",
+     "coffee": "Rwandan blend"
+}
+
+###
+
+GET http://localhost:5000/recipes
+
+###
+
+POST http://localhost:5000/users/register
+Content-Type: application/json
+
+{
+    "username" : "testAccount1",
+    "email" : "testemail@gmail.com",
+    "password" : "testPassword1",
+    "createdAt" : "2025-02-28T16:47:19.169Z"
+}
+
+###
+
+POST http://localhost:5000/users/login
+Content-Type: application/json
+
+{
+    "email" : "testemail@gmail.com",
+    "password" : "testPassword1"
+}

@@ -23,9 +23,12 @@ export const addUser = async (req, reply) => {
     const createdUser = await addUserToDb(newUser);
 
     reply.code(201).send({ createdUser });
-  } catch (err) {
-    console.error("Error adding user:", err);
-    reply.code(500).send({ error: "Failed to add user" });
+  } catch (error) {
+    if(error.code === "P2002"){
+      const existingField = error.meta.target[0]
+      reply.code(500).send({msg: `${existingField} already exists`})
+    }
+    reply.code(500).send({ msg: "Failed to add user" , error});
   }
 };
 export const loginUser = async (req, reply) => {
@@ -41,7 +44,7 @@ export const loginUser = async (req, reply) => {
     if (!isValid) {
       return reply.code(401).send({ error: "Invalid email or password" });
     }
-    const token = jwt.sign({ userId: user.id, email: user.email }, SECRET_KEY, {
+    const token = jwt.sign({ user }, SECRET_KEY, {
       expiresIn: "7d",
     });
     reply.code(200).send({ message: "Login successful", token, user });

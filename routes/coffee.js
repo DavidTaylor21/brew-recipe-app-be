@@ -1,4 +1,4 @@
-import { addCoffee } from "../controllers/coffees.controllers.js";
+import { addCoffee, getCoffees } from "../controllers/coffees.controllers.js";
 const postCoffeeOpts = {
   schema: {
     response: {
@@ -10,7 +10,7 @@ const postCoffeeOpts = {
             type: "object",
             properties: {
               id: { type: "integer" },
-              name: { type: "string" }
+              name: { type: "string" },
             },
           },
         },
@@ -19,8 +19,32 @@ const postCoffeeOpts = {
   },
   handler: addCoffee,
 };
+const getCoffeeOpts = {
+  schema: {
+    response: {
+      200: {
+        type: "object",
+        properties: {
+          coffees: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                id: { type: "integer" },
+                name: { type: "string" },
+              },
+              additionalProperties: true,
+            },
+          },
+        },
+      },
+    },
+  },
+  handler: getCoffees,
+};
 
 export const coffeeRoutes = (fastify, options, done) => {
   fastify.post("/coffees", postCoffeeOpts);
+  fastify.get("/coffees", getCoffeeOpts);
   done();
 };
