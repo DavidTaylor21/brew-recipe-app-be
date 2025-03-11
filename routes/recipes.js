@@ -36,6 +36,7 @@ const getRecipesOpts = {
                 steps: { type: "string" },
                 brewMethod: { type: "string" },
               },
+              additionalProperties: true, 
             }
           }
         }
@@ -44,6 +45,7 @@ const getRecipesOpts = {
   },
   handler: getRecipes
 }
+
 
 export const recipesRoutes = (fastify, options, done) => {
   fastify.post("/recipes", postRecipeOpts);

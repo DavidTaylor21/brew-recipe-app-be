@@ -16,12 +16,14 @@ const postUserOpts = {
               createdAt: { type: "string", format: "date-time" },
             },
           },
+          token: { type: "string" },
         },
       },
     },
   },
   handler: addUser,
 };
+
 const loginUserOpts = {
   schema: {
     response: {

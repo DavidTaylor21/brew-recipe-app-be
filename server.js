@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUI from '@fastify/swagger-ui';
+import cors from "@fastify/cors"
 import { userRoutes } from './routes/users.js';
 import { grindersRoutes } from './routes/grinders.js';
 import { recipesRoutes } from './routes/recipes.js';
@@ -9,6 +10,8 @@ import { coffeeRoutes } from './routes/coffee.js';
 const PORT = 5000
 
 const fastify = Fastify({ logger: true });
+
+fastify.register(cors)
 
 fastify.register(fastifySwagger, {
   swagger: {

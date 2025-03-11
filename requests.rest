@@ -6,7 +6,7 @@ POST http://localhost:5000/grinders
 Content-Type: application/json
 
 {
-    "name": "Mythos 2"
+    "name": "Victoria Arduino Mythos 1"
 }
 
 ###
@@ -14,7 +14,7 @@ POST http://localhost:5000/coffees
 Content-Type: application/json
 
 {
-    "name": "Ethiopian blend"
+    "name": "Gail's House Blend"
 }
 
 ###
@@ -25,19 +25,21 @@ GET http://localhost:5000/coffees
 
 POST http://localhost:5000/recipes
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxNiwidXNlcm5hbWUiOiJEYXZpZCIsImVtYWlsIjoiZGF2aWRAbXYzMi5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCR3eS5GNnhBeC5zUHM2dmQ1OURTU3BlM2lmNWhEQ3AuSEwzYUMzQ1FpUk81dVVJSTNqRUpRLiIsImNyZWF0ZWRBdCI6IjIwMjUtMDMtMTBUMTY6MzI6MTEuOTA4WiJ9LCJpYXQiOjE3NDE2MzE5NjUsImV4cCI6MTc0MjIzNjc2NX0.OtuJqm7owSPxZDQkBSbyta6WsyPFXKDFCU9FlCGdzgQ
 
 {
-     "title" : "second recipe3",
+     "title" : "davids recipe",
      "steps" : "brew coffee again",
      "brewMethod" : "aeropress",
-     "user": "sian",
-     "grinder": "Mythos",
-     "coffee": "Rwandan blend"
+     "grinder": "Victoria Arduino Mythos 1",
+     "coffee": "Gail's House Blend"
 }
 
 ###
 
 GET http://localhost:5000/recipes
+
+
 
 ###
 
@@ -45,9 +47,9 @@ POST http://localhost:5000/users/register
 Content-Type: application/json
 
 {
-    "username" : "testAccount1",
-    "email" : "testemail@gmail.com",
-    "password" : "testPassword1",
+    "username" : "David12",
+    "email" : "david12@mv32.com",
+    "password" : "password123",
     "createdAt" : "2025-02-28T16:47:19.169Z"
 }
 
@@ -57,6 +59,10 @@ POST http://localhost:5000/users/login
 Content-Type: application/json
 
 {
-    "email" : "testemail@gmail.com",
-    "password" : "testPassword1"
+    "email" : "david@mv32.com",
+    "password" : "password123"
 }
+
+
+###
+GET http://localhost:5000/recipes?user=Sam
