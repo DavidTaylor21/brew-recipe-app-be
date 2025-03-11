@@ -60,7 +60,7 @@ Content-Type: application/json
 
 {
     "email" : "david@mv32.com",
-    "password" : "password123"
+    "password" : "password"
 }
 
 

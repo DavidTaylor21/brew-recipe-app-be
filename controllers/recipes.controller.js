@@ -24,7 +24,6 @@ export const addRecipe = async (req, reply) => {
     const createdRecipe = await addRecipeToDb(newRecipe);
     reply.code(201).send({ createdRecipe });
   } catch (error) {
-    console.log(error)
     if (error.name === "JsonWebTokenError") {
       return reply.code(401).send({ msg: "Invalid token" });
     }

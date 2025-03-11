@@ -1,4 +1,4 @@
-import { addUserToDb, getUserByEmail} from "../models/users.model.js";
+import { addUserToDb, getUserByEmail } from "../models/users.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -33,7 +33,6 @@ export const addUser = async (req, reply) => {
         expiresIn: "7d",
       }
     );
-    console.log({ createdUser, token });
     reply.code(201).send({ createdUser, token });
   } catch (error) {
     if (error.code === "P2002") {
@@ -57,9 +56,13 @@ export const loginUser = async (req, reply) => {
     if (!isValid) {
       return reply.code(401).send({ error: "Invalid email or password" });
     }
-    const token = jwt.sign({ user }, SECRET_KEY, {
-      expiresIn: "7d",
-    });
+    const token = jwt.sign(
+      { id: user.id, username: user.username, email: user.email },
+      SECRET_KEY,
+      {
+        expiresIn: "7d",
+      }
+    );
     reply.code(200).send({ message: "Login successful", token, user });
   } catch (err) {
     console.error("Login error:", err);
