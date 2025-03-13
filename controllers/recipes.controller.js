@@ -15,7 +15,7 @@ export const addRecipe = async (req, reply) => {
 
     const token = authHeader.split(" ")[1];
     const verifiedToken = jwt.verify(token, SECRET_KEY)
-    const username = verifiedToken.user.username;
+    const username = verifiedToken.username;
 
     const { title, steps, brewMethod, grinder, coffee } = req.body;
 
