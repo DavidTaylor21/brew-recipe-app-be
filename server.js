@@ -6,6 +6,7 @@ import { userRoutes } from "./routes/users.js";
 import { grindersRoutes } from "./routes/grinders.js";
 import { recipesRoutes } from "./routes/recipes.js";
 import { coffeeRoutes } from "./routes/coffee.js";
+import prisma from "./prisma/prisma.js";
 
 const PORT = process.env.PORT || 3000;
 
@@ -59,4 +60,13 @@ const start = async () => {
     process.exit(1);
   }
 };
+const checkDbConnection = async () => {
+  try {
+    await prisma.$queryRaw('SELECT 1');
+    console.log("Database connection successful.");
+  } catch (error) {
+    console.error("Error connecting to the database:", error);
+  }
+};
+checkDbConnection()
 start();
