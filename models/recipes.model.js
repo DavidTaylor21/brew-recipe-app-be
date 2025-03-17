@@ -37,20 +37,11 @@ export const getRecipesFromDb = async (filter) => {
         select: {
           id: true,
           username: true,
-          email: true,  
-        },
-      },  
-      coffee: {
-        include: {
-          origins: {  
-            include: {
-              origin: true, 
-            },
-          },
+          email: true,
         },
       },
+      coffee: true,
       grinder: true,
     },
   });
-  
 };

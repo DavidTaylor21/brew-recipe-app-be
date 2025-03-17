@@ -6,7 +6,6 @@ import { userRoutes } from "./routes/users.js";
 import { grindersRoutes } from "./routes/grinders.js";
 import { recipesRoutes } from "./routes/recipes.js";
 import { coffeeRoutes } from "./routes/coffee.js";
-import prisma from "./prisma/prisma.js";
 
 const PORT = process.env.PORT || 3000;
 
@@ -51,10 +50,6 @@ fastify.get("/", async (request, reply) => {
   reply.send({ message: "Hello, Coffee Recipe lovers!" });
 });
 
-fastify.get('/prisma-version', (req, reply) => {
-  const prismaVersion = require('@prisma/client/package.json').version;
-  reply.send({ prismaVersion });
-});
 
 const start = async () => {
   try {
@@ -65,13 +60,5 @@ const start = async () => {
     process.exit(1);
   }
 };
-const checkDbConnection = async () => {
-  try {
-    await prisma.$queryRaw`SELECT 1`;
-    console.log("Database connection successful.");
-  } catch (error) {
-    console.error("Error connecting to the database:", error);
-  }
-};
-checkDbConnection()
+
 start();

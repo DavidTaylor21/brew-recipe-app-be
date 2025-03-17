@@ -54,6 +54,7 @@ export const getRecipes = async (req, reply) => {
     const recipes = await getRecipesFromDb(filter);
     reply.code(200).send({ recipes });
   } catch (error) {
-    reply.code(500).send({ msg: "Unable to get recipes", error });
+    console.error('Error fetching recipes:', error);
+    reply.code(500).send({ msg: "Unable to get recipes", error : error.message });
   }
 };
