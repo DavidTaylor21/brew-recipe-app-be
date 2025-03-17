@@ -19,7 +19,13 @@ export const addCoffee = async (req, reply) => {
 };
 export const getCoffees = async (req, reply) => {
   try {
-    const coffees = await getCoffeesFromDb();
+    const coffeeData = await getCoffeesFromDb();
+    const coffees = coffeeData.map(coffee => ({
+      id: coffee.id,
+      name: coffee.name,
+      origins: coffee.origins.map(origin => origin.origin.country),
+    }));
+    console.log(coffees)
 
     reply.code(200).send({ coffees });
   } catch (error) {

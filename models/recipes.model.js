@@ -18,24 +18,33 @@ export const getRecipesFromDb = async (filter) => {
   const where = {};
 
   if (filter.user) {
-    where.user = { username: filter.user }; 
+    where.user = { username: filter.user };
   }
   if (filter.coffee) {
-    where.coffee = { name: filter.coffee }; 
+    where.coffee = { name: { equals: filter.coffee, mode: "insensitive" } };
   }
   if (filter.grinder) {
-    where.grinder = { name: filter.grinder }; 
+    where.grinder = { name: { equals: filter.grinder, mode: "insensitive" } };
   }
-  if(filter.brewMethod) {
-    where.brewMethod = filter.brewMethod
+  if (filter.brewMethod) {
+    where.brewMethod = filter.brewMethod;
   }
 
   return await prisma.recipe.findMany({
     where,
     include: {
-      user: true,    
-      coffee: true, 
-      grinder: true, 
+      user: true,  
+      coffee: {
+        include: {
+          origins: {  
+            include: {
+              origin: true, 
+            },
+          },
+        },
+      },
+      grinder: true,
     },
   });
+  
 };

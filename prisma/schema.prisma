@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
@@ -15,38 +9,74 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  username String  @unique
-  email    String  @unique
-  password String 
-  createdAt DateTime @default(now())
-  recipes Recipe[]
-  grinders Grinder[]
+  id       Int       @id @default(autoincrement())
+  username String    @unique
+  email    String    @unique
+  password String
+  recipes  Recipe[]
+  grinders UserGrinder[]
 }
 
-
 model Grinder {
-  id       Int     @id @default(autoincrement())
-  name     String  @unique
-  users    User[]
-  recipes  Recipe[]
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  users    UserGrinder[]
+  recipes  Recipe[] 
+}
+
+model UserGrinder {
+  userId    Int
+  grinderId Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  grinder   Grinder  @relation(fields: [grinderId], references: [id], onDelete: Cascade)
+
+  @@id([userId, grinderId])
 }
 
 model Coffee {
-  id       Int     @id @default(autoincrement())
-  name     String  @unique
-  recipes  Recipe[]
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  roasteryId Int       
+  roastery   Roastery  @relation(fields: [roasteryId], references: [id])
+  origins    CoffeeOrigin[]   
+  recipes    Recipe[]  
+  custom     Boolean   @default(false) 
 }
 
-model Recipe {
-  id         Int      @id @default(autoincrement())
-  title      String
-  steps      String   
-  brewMethod String
-  userId     Int
-  user       User     @relation(fields: [userId], references: [id])
-  grinderId  Int
-  grinder    Grinder  @relation(fields: [grinderId], references: [id])
-  coffeeId   Int
-  coffee     Coffee   @relation(fields: [coffeeId], references: [id])
+model Origin {
+  id      Int      @id @default(autoincrement())
+  country String   @unique
+  coffees CoffeeOrigin[] 
 }
+
+
+model CoffeeOrigin {
+  coffeeId  Int
+  originId  Int
+  coffee    Coffee  @relation(fields: [coffeeId], references: [id], onDelete: Cascade)
+  origin    Origin  @relation(fields: [originId], references: [id], onDelete: Cascade)
+
+  @@id([coffeeId, originId])
+}
+
+model Roastery {
+  id      Int    @id @default(autoincrement())
+  name    String @unique
+  coffee  Coffee[]
+}
+
+
+model Recipe {
+  id         Int       @id @default(autoincrement())
+  title      String
+  steps      String
+  userId     Int
+  grinderId  Int
+  coffeeId   Int
+  brewMethod String
+  coffee     Coffee   @relation(fields: [coffeeId], references: [id])
+  grinder    Grinder   @relation(fields: [grinderId], references: [id])
+  user       User      @relation(fields: [userId], references: [id])
+  createdAt  DateTime  @default(now())
+}
+
