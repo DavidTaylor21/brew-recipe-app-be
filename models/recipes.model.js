@@ -33,7 +33,13 @@ export const getRecipesFromDb = async (filter) => {
   return await prisma.recipe.findMany({
     where,
     include: {
-      user: true,  
+      user: {
+        select: {
+          id: true,
+          username: true,
+          email: true,  
+        },
+      },  
       coffee: {
         include: {
           origins: {  
