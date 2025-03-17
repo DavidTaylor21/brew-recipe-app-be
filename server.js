@@ -51,6 +51,11 @@ fastify.get("/", async (request, reply) => {
   reply.send({ message: "Hello, Coffee Recipe lovers!" });
 });
 
+fastify.get('/prisma-version', (req, reply) => {
+  const prismaVersion = require('@prisma/client/package.json').version;
+  reply.send({ prismaVersion });
+});
+
 const start = async () => {
   try {
     await fastify.listen({ port: PORT, host: "0.0.0.0" });
