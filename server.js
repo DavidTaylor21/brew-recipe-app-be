@@ -62,7 +62,7 @@ const start = async () => {
 };
 const checkDbConnection = async () => {
   try {
-    await prisma.$queryRaw('SELECT 1');
+    await prisma.$queryRaw('SELECT * FROM "Grinder";');
     console.log("Database connection successful.");
   } catch (error) {
     console.error("Error connecting to the database:", error);
