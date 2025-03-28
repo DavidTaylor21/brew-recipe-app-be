@@ -23,6 +23,7 @@ export const getGrinders = async (req, reply) => {
     const grinders = await getGrindersFromDb();
     reply.code(200).send({ grinders });
   } catch (error) {
+    console.log(error)
     reply.code(500).send({ msg: "Failed to fetch grinders", error });
   }
 };
